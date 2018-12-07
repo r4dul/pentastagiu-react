@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tema 1 - pentastagiu-react</title>
+</head>
+<body>
+	<center><div id="div1" style="background-color: grey; font-size: 20px; display: inline; text-align: center; height: 20px;" ></div></center>
+	<h3 id="h3">If you click here I will reveal some elements.</h3>
+	<div id="div3" style="position: absolute;"><img src="https://www.pet-happy.com/files/up/2014/09/scared-cat.jpg"></div>
+	<div id="div4"></div>
+	<h4 id="h4"></h4>
+	<div id="div5"></div>
+	<div id="div2" style="background-color: Tomato;margin-top: 2%; height: 100vh; font-size: 20px; text-align: center; padding-top:50px;"></div>
+    <script>
+    	window.addEventListener('load', loadPage);
+    	function loadPage(){
+    		var div1 = document.getElementById("div1");
+    		div1.innerHTML = "Mouse over event. Make me big!";
+    		div1.addEventListener('mouseover', function(e) {
+    			div1.style.backgroundColor = 'brown';
+    			div1.style.height = '50px';
+    			div1.style.fontSize = '50px';
+    			div1.innerHTML = "Mouse out event. Make me small!";
+    		});
+    		div1.addEventListener('mouseout', function(e) {
+    			div1.style.backgroundColor = 'grey';
+    			div1.style.height = '20px';
+    			div1.style.fontSize = '20px';
+    			div1.innerHTML = "Mouse over event. Make me big!";
+    		});
+
+    		var h3 = document.getElementById("h3");
+    		var div4 = document.getElementById("div4");
+    		h3.innerHTML = "No, you don't have a slow internet connection, I'm just displaying this image 10 pixels" +  
+    		"(from the height) every half second.";
+
+    		//document.getElementById("div3").style.clip = "rect(0px,50px,50px,0px)";
+    		div4.style = document.getElementById("div3").style.clip = "rect(0px,424px,10px,0px)";
+	    	var i= 1;
+	    	var iPX = 0;
+    		while (i < 29) {
+    			setTimeout(displayImage, i * 500);
+    			i++;
+    		}
+
+    		function displayImage(){
+    			iPX += 10;
+  				console.log(iPX);
+    			var div3 = document.getElementById("div3");
+    			var newDiv = document.createElement("div");
+    			newDiv.style = document.getElementById("div3").style.clip = "rect(0px,424px," + iPX + "px,0px)";
+    			newDiv.style.display = 'block';
+    			div4.appendChild(newDiv);
+    		}
+
+    		var div2 = document.getElementById("div2");
+    		div2.innerHTML = "If you click anywhere in this almost red rectangle something weird will happen.";
+    		div2.addEventListener('click', function(e) {
+    			div2.style.backgroundColor = 'red';
+    			div2.innerHTML = "";
+    			setInterval(myFunction, 100);
+    		});
+
+    		var h4 = document.getElementById("h4");
+    		h4.style.marginTop = '25%';
+    		h4.style.textAlign = 'center';
+    		h4.innerHTML = "Click here to see a moving square.";
+    		h4.addEventListener('click', function(e) {
+    			h4.style.display = 'none';
+    			var div5 = document.getElementById("div5");
+	    		div5.style.height = '100px';
+	    		div5.style.width = '100px';
+	    		div5.style.backgroundColor = "red";
+	    		//div5.style.position = 'relative';
+	    		div5.style.marginTop = '25%';
+	    		setInterval(movingSquare, 500);
+	    		});
+    	}
+
+// This might not work with IE adding separate code for IE is not relevant for this assignment
+    	var viewportwidth = window.innerWidth;
+    	viewportwidth = viewportwidth - (viewportwidth % 100);
+    	var squarePosition = 0;
+    	console.log("This is width"+viewportwidth);
+
+    	function movingSquare() {
+    		var div5 = document.getElementById("div5");
+    		div5.style.backgroundColor = returnColor();
+			changeSquarePosition(div5);
+    	}
+
+    	function changeSquarePosition(div5) {
+    		if (squarePosition < viewportwidth) {
+    			squarePosition += 100;
+    			div5.style.marginLeft = squarePosition + "px";
+    			if (squarePosition == viewportwidth) {
+    					squarePosition = -100;
+    			}
+    		}
+    	}
+
+
+    	function myFunction(){
+    		var div2 = document.getElementById("div2");
+    		//var colorStr = returnColor();
+    		div2.style.backgroundColor = returnColor();
+    	}
+
+    	function returnColor(){
+    		var str = "ABCDEF0123456789"; //14 chars
+    		var newStr = '#' + str[Math.floor(Math.random() * 14)] + str[Math.floor(Math.random() * 14)] + str[Math.floor(Math.random() * 14)] + str[Math.floor(Math.random() * 14)] + str[Math.floor(Math.random() * 14)] + str[Math.floor(Math.random() * 14)];
+    		console.log(newStr);
+    		return newStr;
+    	}
+    </script>
+</body>
+</html>
