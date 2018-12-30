@@ -1,0 +1,12 @@
+.contentCard {
+    float: left;
+    width: 300;
+    height: 450;
+    padding: 10px;
+}
+
+
+img {
+    width: 250px;
+    height: 400px;
+}
